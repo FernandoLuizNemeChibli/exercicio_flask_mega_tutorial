@@ -1,0 +1,14 @@
+<form action="" method="post" name="send_post">
+	{{form.hidden_tag()}}
+	<table>
+	<tr align="center"><td>
+		Say something to your followers:
+	</td></tr>
+	<tr align="center"><td>
+		{{form.text(cols=32,rows=5)}}
+	</td></tr>
+	<tr align="center"><td>
+		<input type="submit" value="Send your post!">
+	</td></tr>
+	</table>
+</form>

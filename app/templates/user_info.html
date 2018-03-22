@@ -1,0 +1,63 @@
+<p>
+<td width="13pt"></td>
+<td bgcolor="#EFFEFF" width="30%" height="230pt">
+	<table>
+		<tr valign="top">
+			<td style="white-space:nowrap;width:1%;">
+				<a href="{{url_for('user',nickname=user.nickname)}}"> <img src="{{user.avatar(50,'bigger')}}" width="50pt" heigth="50pt">
+			</td>
+			<td>
+				<b><a href="{{url_for('user',nickname=user.nickname)}}">
+					{{ user.nickname }}
+				</a>
+				<br>{% if user.online %}<font color="green">On{% else %}<font color="red">Off{% endif %}line</font></b>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+			<i>
+			Last seen on:
+			{% if user.last_seen!=None %} 
+				{{user.last_seen.strftime("%d %b %Y")}}
+			{% else %}
+				<font color="lightgray">{{" never"}}</font>
+			{% endif %}
+			</i>
+			</td>
+		</tr>
+		<tr><td colspan="2">
+		<hr><center>
+		{% if current_user.id!=user.id %}
+			{% if not current_user.is_following(user) %}
+				<a class="follow" href="{{url_for('follow',nickname=user.nickname)}}">Follow</a>
+				| <font color="red">Unfollowed</font>
+			{% else %}
+				<font color="green">Following</font> |
+				<a class="unfollow"href="{{url_for('unfollow',nickname=user.nickname)}}">Unfollow</a>
+			{% endif %}
+		{% else %}
+			<font color="green">
+			Look, it's you!
+			</font>
+		{% endif %}
+		</center><hr>
+		</td></tr>
+		<tr>
+			<td colspan="2">
+				<div style="width:30vw;height:50pt;word-wrap:break-word;overflow-y:auto;">
+				{% if user.about_me!=None and user.about_me!=""%}
+					<i style="color:darkcyan;">
+					{% for line in user.about_me.split("\n") %}
+						{{line}}<br>
+					{% endfor %}
+					</i>
+				{% else %}
+					<font color="gray">[No description]</font>
+				{% endif %}
+				</div>
+			</td>
+		</tr>
+	</table>
+</td>
+</p>
+

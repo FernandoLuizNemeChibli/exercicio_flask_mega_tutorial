@@ -1,0 +1,28 @@
+<!-- extend base layout -->
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1>{{title}}</h1>
+	<hr>
+	<center>
+		<form action="{{url_for('search')}}" method="post" name="search">
+			{{form.hidden_tag()}}
+			{{form.search(size=20)}}
+			<input type="submit" value="Search">
+		</form>
+		<br>
+		{% if query==None %}
+			Nothing searched. Type something!
+		{% elif results|length==0 %}
+			Nothing found for "{{query}}".
+		{% else %}
+			Search results for "{{query}}":
+			<br>
+			{% for post in results %}
+				{% if post.user_id!=None %}
+					{% include "post.html" %}
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+	</center>
+{% endblock %}

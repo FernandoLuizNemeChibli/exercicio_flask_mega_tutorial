@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+	<center>
+	<h1>Hello, {{current_user.nickname}}!</h1>
+	{% with form=form %}
+	{% include 'send_post.html' %}
+	{% endwith %}
+	<div style="width:58%">
+	<hr>
+	<div style="height:60vh;overflow-y:auto">
+	{% for post in posts %}
+		{% include 'post.html' %}
+	{% endfor %}
+	</div>
+	<hr>
+	</div>
+	</center>
+{% endblock %}
+

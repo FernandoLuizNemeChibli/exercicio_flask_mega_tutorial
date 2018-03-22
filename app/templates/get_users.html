@@ -1,0 +1,49 @@
+<!-- extend base layout -->
+{% extends 'base.html' %}
+
+{% block content %}
+	<h1>{{title}}</h1>
+	<hr>
+	<center>
+	<table width="90%">
+	<tr><td colspan="5"><br></td></tr>
+	{% set cells=users.items+([None]*(9-(users.items|length))) %}
+	{% for user in cells %}
+		{% if loop.index0%3==0 %}
+			<tr valign="top">
+		{% endif %}
+		{% if user==None%}
+			<td width="13pt"></td>
+			<td width="30%" height="230pt"></td>
+		{% else %}
+			{% include 'user_info.html' %}
+		{% endif %}
+		{% if loop.index0%3==2 %}
+			</tr>
+			<tr><td colspan="3"><p></p></td></tr>
+		{% endif %}
+	{% endfor %}
+	</table>
+	<div style="width:50vw;">
+		<spam style="float:left">
+		{% if users.has_prev %}
+		<a href="{{url_for(route,nickname=nickname,page=users.prev_num)}}" style="text-decoration:none;color:blue;">
+			<b>&lt;&lt;</b>
+		</a>
+		{% else %}
+			<b style="color:white">&lt;&lt;</b>
+		{% endif %}
+		</spam>
+		{{users.page}}
+		<spam style="float:right">
+		{% if users.has_next %}
+		<a href="{{url_for(route,nickname=nickname,page=users.next_num)}}" style="text-decoration:none;color:blue;">
+			<b>&gt;&gt;</b>
+		</a>
+		{% else %}
+			<b style="color:white">&gt;&gt;</b>
+		{% endif %}
+		</spam>
+	</div>
+	</center>
+{% endblock %}

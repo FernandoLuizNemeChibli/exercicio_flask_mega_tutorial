@@ -1,0 +1,24 @@
+<p align="center">
+	<table width="58%" style="background:#EFFEFF;">
+		<tr valign="top">
+			<td style="white-space:nowrap;width:1%;">
+				<img src="{{post.author.avatar(50,'bigger')}}" width="50pt" height="50pt">
+			</td>
+			<td style="width:50%;"><div style="width:50vw;word-wrap:break-word;">
+				<i>{{ post.author.nickname }} said:</i>
+				{% if post.author.id==current_user.id %}
+				<span style="float:right;">
+					<a href="{{url_for('remove_post',post_id=post.id)}}">delete</a>
+				</span>
+				{% endif %}
+				<div style="font-size:10pt;color:grey">{{ post.timestamp.strftime("%d %b %Y") }}</div>
+				<b>
+				{% for line in post.body.split('\n') %}
+					{{line}}<br>
+				{% endfor %}
+				</b>
+			</td>
+		</tr>
+	</table>
+</p>
+

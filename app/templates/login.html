@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+	<h1>Log In</h1>
+	Please log in with a Flaskbook account:
+	<p>
+		<form action="" method="post" name="edit">
+		        {{form.hidden_tag()}}
+		        <table>
+		        <tr>
+		                <td>Nickname:</td>
+		                <td>{{form.nickname(size=24)}}</td>
+		        </tr>
+		        <tr>
+		                <td>Password:</td>
+		                <td>{{form.password(size=24)}}</td>
+		        </tr>
+		        <tr>
+		                <td></td>
+                		<td><input type="submit" value="Log In"></td>
+		        </tr>
+		        </table>
+	        </form>
+
+	</p>
+	Or log in with:
+	<p><a href="{{url_for('oauth_authorize',provider='facebook')}}">Facebook</a></p>
+	<p><a href="{{url_for('oauth_authorize',provider='twitter')}}">Twitter</a></p>
+	<p>Or <a href="{{url_for('register')}}">click here to register!</a></p>
+{% endblock %}

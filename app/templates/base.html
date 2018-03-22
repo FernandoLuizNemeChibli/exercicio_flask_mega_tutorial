@@ -1,0 +1,70 @@
+<style>
+	a{
+		text-decoration:none;
+		color:blue;
+	}
+	a:hover{
+		color:cyan;
+	}
+	a.follow{
+		font-weight:bold;
+		color:green;
+	}
+	a.follow:hover{
+		color:turquoise
+	}
+	a.unfollow{
+		font-weight:bold;
+		color:red;
+	}
+	a.unfollow:hover{
+		color:#ff6666;
+	}
+</style>
+<html>
+        <head>
+		{% if title %}
+	                <title>{{title}} - Flaskbook Social</title>
+		{% else %}
+	                <title>Welcome to Flaskbook Social</title>
+		{% endif %}
+        </head>
+        <body>
+	<p>
+	<div align="center">
+		<span style="float:left;font-weight:bold;width:33%;background:#EFFEFF">
+			<a href='/index'>Flaskbook</a>
+			{% if current_user.is_authenticated %}
+			| <a href='{{ url_for("all_users") }}'>All Users</a>
+			| <a href='{{ url_for("search") }}'>Search</a>
+			{% endif %}
+		</span>
+		<span style="float:left;width:34%;">
+			{% with messages=get_flashed_messages() %}
+				{% if messages %}
+					<font color="red">
+					{% for message in messages %}
+						{{message}}
+						{% if loop.index< messages|length%} <!--- --->
+						{{" - "}}
+						{% endif %}
+					{% endfor %}
+					</font>
+				{% else %}
+					<b><font color="lightgray">{{title}}</font></b>
+				{% endif %}
+			{% endwith %}
+		</span>
+		<span style="float:right;font-weight:bold;width:33%;background:#EFFEFF;">
+			{% if current_user.is_authenticated %}
+			<a href='{{ url_for("user",nickname=current_user.nickname) }}'>Profile</a>
+			| <a href='{{ url_for("logout") }}'>Logout</a>
+			{% endif %}
+		</span>
+	</div>
+	</p>
+	<br>
+	<hr>
+		{% block content %}{% endblock %}
+        </body>
+</html>
